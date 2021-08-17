@@ -12,17 +12,19 @@ def Face_Embed(name,path):
     # compute the facial embedding for the any face
     encoding = face_recognition.face_encodings(rgb, box)[0]
     
-    try:
+    try:# open database if it exists
         with open("database.json", mode="r") as file:
             data = json.load(file)
-    except:
+    except:# make a new database if there is not
         with open("database.json", mode="w") as file:
             data = []
             json.dump(data,file)
 
 
     with open("database.json", mode="w") as file:
+        # find in database if there was a name similar to new name
             duplicate_index = [i for (i,x) in enumerate(data) if x["name"]==name]
+            # write in database name and encoder vector
             if duplicate_index==[]:
                 data.append({"name":name , "encod":encoding.tolist()})
                 json.dump(data, file)

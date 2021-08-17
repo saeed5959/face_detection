@@ -12,11 +12,11 @@ def Face_Compare(name,path):
     box = face_recognition.face_locations(rgb,model='hog')
     # compute the facial embedding for the any face
     new_encoding = face_recognition.face_encodings(rgb, box)[0]
-
+    # open database
     with open("database.json", mode="r") as file:
         data = json.load(file)
 
-
+    # find the reference image encoder based on name
     old_encoding = np.array([x["encod"] for x in data if x["name"]==name])
     if old_encoding == []:
         return print("you hav not uploaded reference image")
@@ -31,6 +31,6 @@ def Face_Compare(name,path):
 
 
 
-Face_Compare('ali','/home/saeed/s.png')
+# Face_Compare('ali','/home/saeed/s.png')
 if __name__ == '__main__':
     Face_Compare(sys.argv[1] , sys.argv[2])
